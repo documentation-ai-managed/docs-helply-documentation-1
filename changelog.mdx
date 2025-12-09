@@ -1,0 +1,149 @@
+---
+title: Helply Changelog
+description: Track the latest updates, new features, and improvements in Helply to stay informed about enhancements to your AI support solution.
+---
+
+## Latest Releases
+
+Stay current with Helply's evolution. Review recent updates below to understand new capabilities that enhance your AI support agent's performance in handling tickets across languages.
+
+<Update label="2024-10-15" description="v1.2.0" tags={["feature", "improvement"]}>
+
+## New Features
+
+- Added multi-language ticket routing that automatically detects and assigns tickets based on customer language preferences.
+- Introduced real-time analytics dashboard for monitoring agent response accuracy and speed.
+
+## Improvements
+
+- Enhanced ticket context retention by 30% for longer conversations.
+- Optimized API response times for high-volume support teams.
+
+## Bug Fixes
+
+- Fixed intermittent failures in ticket summarization for non-English languages.
+- Resolved dashboard refresh issues during peak hours.
+
+</Update>
+
+<Update label="2024-09-20" description="v1.1.0" tags={["feature", "bugfix"]}>
+
+## New Features
+
+- Integrated Slack notifications for escalated tickets handled by the AI agent.
+- Added custom prompt templates for tailoring agent responses to your brand voice.
+
+## Bug Fixes
+
+- Corrected token limit overflows in extended ticket threads.
+- Patched authentication errors when integrating with Zendesk.
+
+</Update>
+
+<Update label="2024-08-10" description="v1.0.0" tags={["feature", "breaking"]}>
+
+## New Features
+
+- Core AI agent launch with ticket classification and auto-resolution.
+- Support for 20+ languages with 95% accuracy in intent detection.
+
+## Breaking Changes
+
+- Updated API endpoints from `/v0/` to `/v1/` prefix. Migrate your integrations promptly.
+
+</Update>
+
+## Upcoming Roadmap
+
+Helply continues to innovate. Explore planned enhancements to scale your support operations.
+
+<Columns cols={3}>
+  <Card title="Q4 2024" icon="zap" href="#">
+    Voice support integration for phone tickets.
+  </Card>
+  <Card title="Q1 2025" icon="shield" href="#">
+    Advanced security with end-to-end encryption.
+  </Card>
+  <Card title="Q2 2025" icon="trending-up" href="#">
+    Predictive analytics for ticket volume forecasting.
+  </Card>
+</Columns>
+
+<Callout kind="info">
+  Subscribe to our newsletter for beta access to upcoming features.
+</Callout>
+
+## Upgrade Your Integration
+
+Follow these steps to update your Helply integration to the latest version.
+
+<Steps>
+  <Step title="Update SDK" icon="download">
+    Install the latest package based on your platform.
+
+    <CodeGroup tabs="Node.js,Python">
+      ```bash
+      npm install @helply/sdk@latest
+      ```
+      ```bash
+      pip install helply-sdk==1.2.0
+      ```
+    </CodeGroup>
+  </Step>
+  <Step title="Migrate API Calls" icon="settings">
+    Update endpoint paths from `/v0/tickets` to `/v1/tickets`.
+
+    <CodeGroup tabs="JavaScript,Python">
+      ```javascript
+      const response = await fetch('https://api.helply.ai/v1/tickets', {
+        method: 'POST',
+        headers: { 'Authorization': `Bearer ${API_KEY}` },
+        body: JSON.stringify({ content: 'Customer query' })
+      });
+      ```
+      ```python
+      import requests
+      response = requests.post(
+          'https://api.helply.ai/v1/tickets',
+          headers={'Authorization': f'Bearer {API_KEY}'},
+          json={'content': 'Customer query'}
+      )
+      ```
+    </CodeGroup>
+  </Step>
+  <Step title="Test and Deploy" icon="rocket">
+    Run your test suite and monitor the first 100 tickets post-deployment.
+  </Step>
+</Steps>
+
+## Check Versions Across Platforms
+
+Verify your setup matches the latest releases.
+
+<Tabs>
+  <Tab title="Web Dashboard" icon="monitor">
+    Navigate to Settings > About to view the deployed version.
+  </Tab>
+  <Tab title="API" icon="api">
+    Call `GET /v1/status` to retrieve server version.
+
+    ```javascript
+    const status = await fetch('https://api.helply.ai/v1/status');
+    console.log(await status.json()); // { version: "1.2.0" }
+    ```
+  </Tab>
+  <Tab title="SDK" icon="package">
+    Check your `package.json` or `requirements.txt` for the installed version.
+  </Tab>
+</Tabs>
+
+<Expandable title="Migration Guide for v1.0.0 Breaking Changes" default-open="false">
+  If upgrading from pre-v1.0.0, review the full migration notes:
+
+  | Old Endpoint       | New Endpoint         | Changes                  |
+  |--------------------|----------------------|--------------------------|
+  | `/v0/tickets`     | `/v1/tickets`       | Added `language` field  |
+  | `/v0/agent/stats` | `/v1/analytics`     | Real-time metrics       |
+
+  Update your code to avoid deprecation warnings.
+</Expandable>

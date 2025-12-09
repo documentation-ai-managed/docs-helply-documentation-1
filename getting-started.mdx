@@ -1,0 +1,165 @@
+---
+title: Getting Started with Helply
+description: Quickly set up your Helply account and integrate the AI agent into your support workflow to start automating ticket handling.
+---
+
+## Quickstart Overview
+
+Helply automates your support tickets using AI trained on your past conversations. You set up an account, configure settings, connect your tools like Zendesk or Intercom, and test processing. Follow these steps to go live in minutes.
+
+<Columns cols={3}>
+  <Card title="Create Account" icon="user-plus" href="#create-account">
+    Sign up and verify in 2 minutes.
+  </Card>
+  <Card title="Configure AI" icon="settings" href="#configure">
+    Set language and behavior preferences.
+  </Card>
+  <Card title="Connect Tools" icon="plug" href="#connect">
+    Link Zendesk, Intercom, or API.
+  </Card>
+</Columns>
+
+## Create Your Helply Account
+
+Sign up at [app.helply.ai](https://app.helply.ai/register) to access the dashboard.
+
+<Steps>
+  <Step title="Sign Up" icon="user-plus">
+    Enter your email, company name, and create a password. Helply supports SSO with Google Workspace or Okta.
+  </Step>
+  <Step title="Verify Email" icon="mail">
+    Check your inbox for the verification link. It expires in 24 hours.
+  </Step>
+  <Step title="Access Dashboard" icon="activity">
+    Log in to view your workspace. Note your `{WORKSPACE_ID}` from the settings page.
+  </Step>
+</Steps>
+
+<Callout kind="tip">
+  Use a dedicated support email like `support@yourcompany.com` for notifications.
+</Callout>
+
+## Initial Configuration
+
+Customize the AI agent to match your support style.
+
+<Steps>
+  <Step title="Set Languages" icon="globe">
+    In Dashboard > Settings > Languages, select supported languages (e.g., English, Spanish, French). Helply auto-detects tickets.
+  </Step>
+  <Step title="Define Behavior" icon="bot">
+    Upload 50+ past tickets via CSV. Set response tone: `helpful`, `concise`, or `detailed`.
+  </Step>
+  <Step title="Generate API Key" icon="key">
+    Go to API > Keys and create `{API_KEY}`. Store it securely.
+  </Step>
+</Steps>
+
+## Connect to Your Support Tools
+
+Integrate Helply with your ticketing system. Choose your platform below.
+
+<Tabs>
+  <Tab title="Zendesk" icon="help-circle">
+    <Steps>
+      <Step title="Enable Webhook" icon="plug">
+        In Zendesk Admin > Apps > Webhooks, add `https://api.helply.ai/v1/webhooks/zendesk`.
+      </Step>
+      <Step title="Add Headers" icon="settings">
+        Include `Authorization: Bearer {API_KEY}` and `X-Workspace-ID: {WORKSPACE_ID}`.
+      </Step>
+    </Steps>
+
+    <CodeGroup tabs="cURL,JavaScript">
+      ```bash
+      curl -X POST https://api.helply.ai/v1/tickets \
+        -H "Authorization: Bearer YOUR_API_KEY" \
+        -H "Content-Type: application/json" \
+        -d '{
+          "subject": "Login issue",
+          "body": "User cannot access account",
+          "language": "en"
+        }'
+      ```
+      ```javascript
+      const response = await fetch('https://api.helply.ai/v1/tickets', {
+        method: 'POST',
+        headers: {
+          'Authorization': 'Bearer YOUR_API_KEY',
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          subject: 'Login issue',
+          body: 'User cannot access account',
+          language: 'en'
+        })
+      });
+      ```
+    </CodeGroup>
+  </Tab>
+  <Tab title="Intercom" icon="message-circle">
+    Use Intercom's webhook settings to forward conversations to Helply.
+    Set endpoint to `https://api.helply.ai/v1/webhooks/intercom` with your `{API_KEY}`.
+  </Tab>
+</Tabs>
+
+## Test First Ticket Processing
+
+Send a test ticket to verify integration.
+
+<Request tabs="cURL,JavaScript" show-lines="true">
+  ```bash
+  curl -X POST https://api.helply.ai/v1/process \
+    -H "Authorization: Bearer sk_helply_123abc" \
+    -H "X-Workspace-ID: ws_456def" \
+    -d '{
+      "ticket_id": "TICKET_789",
+      "subject": "Password reset not working",
+      "description": "Customer tried resetting password but link expired.",
+      "priority": "medium"
+    }'
+  ```
+  ```javascript
+  const testTicket = await fetch('https://api.helply.ai/v1/process', {
+    method: 'POST',
+    headers: {
+      'Authorization': 'Bearer sk_helply_123abc',
+      'X-Workspace-ID': 'ws_456def'
+    },
+    body: JSON.stringify({
+      ticket_id: 'TICKET_789',
+      subject: 'Password reset not working',
+      description: 'Customer tried resetting password but link expired.',
+      priority: 'medium'
+    })
+  });
+  const result = await testTicket.json();
+  console.log(result.response); // AI-generated reply
+  ```
+</Request>
+
+<Response tabs="200,400">
+  ```json
+  {
+    "ticket_id": "TICKET_789",
+    "status": "processed",
+    "ai_response": "Please ask the customer to request a new reset link. Common causes include expired tokens after 1 hour.",
+    "confidence": 0.95,
+    "action": "reply"
+  }
+  ```
+  ```json
+  {
+    "error": "Invalid API key",
+    "code": 401
+  }
+  ```
+</Response>
+
+<Callout kind="success">
+  Check your tool's dashboard for the AI reply. Monitor first 10 tickets manually.
+</Callout>
+
+## Next Steps
+
+Review analytics in your Helply dashboard and fine-tune based on accuracy scores. Scale to full automation once confidence exceeds 90%.

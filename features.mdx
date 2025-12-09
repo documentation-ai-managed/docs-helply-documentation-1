@@ -1,0 +1,122 @@
+---
+title: Core Features of Helply
+description: Explore the essential capabilities of Helply's AI agent, including learning from historical data, multilingual support, and performance optimization for efficient customer service.
+---
+
+## Overview
+
+Helply empowers you to scale customer support with an AI agent that learns directly from your past tickets. You gain 24/7 multilingual responses, improved speed and accuracy, and actionable analytics. These features work together to handle high volumes without compromising quality.
+
+<Columns cols={3}>
+  <Card title="AI Learning" icon="brain" href="#ai-learning">
+    Your agent trains on historical tickets to provide context-aware responses.
+  </Card>
+  <Card title="Multilingual Support" icon="globe" href="#multilingual">
+    Respond in any language, 24/7, with native fluency.
+  </Card>
+  <Card title="Performance Optimization" icon="zap" href="#performance">
+    Achieve faster resolutions and higher accuracy through continuous improvement.
+  </Card>
+</Columns>
+
+## AI Learning from Past Tickets
+
+Helply's AI agent analyzes your ticket history to understand patterns, customer pain points, and resolution strategies. You upload past conversations, and the agent fine-tunes itself without manual training.
+
+<Steps>
+  <Step title="Upload Data" icon="upload">
+    Import your Zendesk or Intercom tickets via API.
+  </Step>
+  <Step title="Train Agent" icon="cpu">
+    Helply processes data in under 24 hours.
+  </Step>
+  <Step title="Deploy" icon="rocket">
+    Activate the agent for live support.
+  </Step>
+</Steps>
+
+<Callout kind="tip">
+  Start with at least 1,000 tickets for optimal learning. The agent improves with more data.
+</Callout>
+
+## 24/7 Multilingual Response Generation
+
+You serve global customers around the clock. Helply generates responses in over 50 languages, matching tone and context from your training data.
+
+<Tabs>
+  <Tab title="English" icon="globe">
+    Customer: "How do I reset my password?"
+    
+    Helply: "Click 'Forgot Password' on the login page, enter your email, and follow the link sent to you."
+  </Tab>
+  <Tab title="Spanish" icon="globe">
+    Customer: "¿Cómo restablezco mi contraseña?"
+    
+    Helply: "Haz clic en '¿Olvidaste tu contraseña?' en la página de inicio de sesión, ingresa tu correo electrónico y sigue el enlace que te enviaremos."
+  </Tab>
+  <Tab title="French" icon="globe">
+    Customer: "Comment réinitialiser mon mot de passe ?"
+    
+    Helply: "Cliquez sur 'Mot de passe oublié' sur la page de connexion, saisissez votre e-mail et suivez le lien envoyé."
+  </Tab>
+</Tabs>
+
+## Speed and Accuracy Improvements
+
+Helply reduces average response time by up to 70% and boosts first-contact resolution. You integrate it seamlessly into your workflows.
+
+<CodeGroup tabs="JavaScript,Python">
+  ```javascript
+  const response = await fetch('https://api.helply.ai/v1/respond', {
+    method: 'POST',
+    headers: { 'Authorization': `Bearer ${YOUR_API_KEY}`, 'Content-Type': 'application/json' },
+    body: JSON.stringify({
+      ticket: 'How do I upgrade my plan?',
+      context: 'Customer on free tier, interested in pro features'
+    })
+  });
+  const data = await response.json();
+  console.log(data.reply); // "To upgrade, go to Billing > Plans and select Pro."
+  ```
+  ```python
+  import requests
+
+  headers = {
+      'Authorization': f'Bearer {YOUR_API_KEY}',
+      'Content-Type': 'application/json'
+  }
+  data = {
+      'ticket': 'How do I upgrade my plan?',
+      'context': 'Customer on free tier, interested in pro features'
+  }
+  response = requests.post('https://api.helply.ai/v1/respond', json=data, headers=headers)
+  print(response.json()['reply'])  # "To upgrade, go to Billing > Plans and select Pro."
+  ```
+</CodeGroup>
+
+## Analytics and Performance Insights
+
+Track your agent's performance with built-in dashboards. You monitor metrics like resolution rate, language coverage, and accuracy scores.
+
+| Metric              | Description                          | Target Benchmark |
+|---------------------|--------------------------------------|------------------|
+| Response Time       | Average time to generate reply       | `<2 seconds`    |
+| Resolution Rate     | % of tickets solved on first reply   | `>85%`          |
+| Multilingual Accuracy | Correct language and context match  | `>95%`          |
+
+<Expandable title="Advanced Analytics Setup" default-open="false">
+
+Connect to your dashboard for custom reports:
+
+```javascript
+// Fetch performance data
+const metrics = await fetch('https://api.helply.ai/v1/analytics', {
+  headers: { 'Authorization': `Bearer ${YOUR_API_KEY}` }
+}).then(res => res.json());
+
+console.log(metrics.resolutionRate); // 92.3
+```
+
+</Expandable>
+
+These features ensure Helply scales your support effortlessly, adapting to your unique needs over time.
